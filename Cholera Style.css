@@ -1,0 +1,30 @@
+.pagetitle {
+	color: rgb(157, 34, 53);
+	font-family: 'Arial', serif;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.pagesubtitle {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 30x;
+	font-weight: bold;
+}
+
+.pagetext {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 12x;
+}
+
+.pagebutton {
+	background-color: rgb(157, 34, 53);
+	color: white;
+	font-family: 'Arial', serif;
+	font-size: 17px;
+	padding: 9px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
