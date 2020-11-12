@@ -1,0 +1,94 @@
+.pagetitle {
+	color: rgb(157, 34, 53);
+	font-family: 'Arial', serif;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.pagesubtitle {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 30x;
+	font-weight: bold;
+}
+
+.pagetext {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 12x;
+}
+
+.pagebutton {
+	background-color: rgb(157, 34, 53);
+	color: white;
+	font-family: 'Arial', serif;
+	font-size: 17px;
+	padding: 9px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+
+
+/** Svg element styles */
+
+svg .street {
+    stroke: gray;
+    stroke-width: 1px;
+    fill: none;
+}
+
+svg .mapLabel {
+    font-family: sans-serif;
+    fill: black;
+}
+
+svg .pump {
+    fill: black;
+    stroke: none;
+}
+
+svg .death {
+    stroke: none;
+    r: 2;
+}
+
+svg .graphline {
+    fill: none;
+    stroke-width: 1px;
+}
+
+svg .deathhoverbar:hover {
+    fill-opacity: .6;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 7.5px;
+    fill: black;
+}
+
+.date-input {
+    padding: 4px;
+    width: 100px;
+}
+
+#from-date {
+    position: relative;
+    top: 18vh;
+    left: 36vw;
+}
+
+#to-date {
+    position: relative;
+    top: 22vh;
+    left: 30.55vw;
+}
