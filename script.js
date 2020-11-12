@@ -525,7 +525,12 @@ function loadDeaths() {
 
             drawDeathsMap();
             drawTotal(deathDays, true);
-            onTotalHover(deathDays[0]);
+            const day = Object.assign({}, deathDays[0]);
+            for (let i=0; i < ageRanges.length; i++) {
+                day.age[i] = deathDays.map(e => e.age[i]).reduce((a, b) => a + b, 0);
+            }
+            day.deathdate = 'All days';
+            onTotalHover(day);
             drawGender(200, 150, deathDays, true);
             drawPieChartHeaders();
         });
