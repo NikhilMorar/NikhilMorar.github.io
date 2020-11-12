@@ -525,7 +525,7 @@ function loadDeaths() {
 
             drawDeathsMap();
             drawTotal(deathDays, true);
-            onTotalHover();
+            onTotalHover(deathDays[0]);
             drawGender(200, 150, deathDays, true);
             drawPieChartHeaders();
         });
