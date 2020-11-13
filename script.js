@@ -285,7 +285,7 @@ function drawTotal(days, isFirstTime) {
         .attr('class', 'graphline')
         .attr('d', graphTotalPathGenerator(days))
         .attr('id', 'graphlinetotal')
-        .attr('stroke', '#f79036');
+        .attr('stroke', '#ff0000');
     
     // Prepare hover text
     const hoverText = (d) => d.deathdate + ': ' + d.total + (d.total == 1 ? ' death' : ' deaths');
@@ -294,7 +294,7 @@ function drawTotal(days, isFirstTime) {
 
 // What happens on hover of total line chart.
 function onTotalHover(d) {
-    map.selectAll('.death').attr('fill', '#f79036');
+    map.selectAll('.death').attr('fill', '#ff0000');
     if (!d || d.total === 0) {
         return;
     }
