@@ -44,32 +44,32 @@ const ageRanges = [
     {
         label: '0-10',
         opacity: 1,
-        color: '#003049'
+        color: '#8B00FF'
     },
     {
         label: '11-20',
         opacity: 1,
-        color: '#D62828'
+        color: '#0000FF'
     },
     {
         label: '21-40',
         opacity: 1,
-        color: '#F77F00'
+        color: '#00FF00'
     },
     {
         label: '41-60',
         opacity: 1,
-        color: '#FCBF49'
+        color: '#CCCC00'
     },
     {
         label: '61-80',
         opacity: 1,
-        color: '#D8D78F'
+        color: '#FF7F00'
     },
     {
         label: '> 80',
         opacity: 1,
-        color: '#002F00'
+        color: '#FF0000'
     }
 ];
 const months = [
