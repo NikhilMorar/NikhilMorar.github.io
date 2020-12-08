@@ -1,0 +1,303 @@
+body {
+    background-color: #2e2e2e;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15pt;
+    margin: 0;
+}
+
+h1 {
+    text-align: left;
+    color: white;
+    font-weight: 400;
+    padding: 10;
+    padding-left: 20;
+    font-size: xx-large;
+}
+
+#sources,
+#contributors {
+    text-align: center;
+    color: white;
+    background-color: #474747;
+    border: 2px #484848;
+}
+
+#viz {
+    width: 100%;
+    height: 750px;
+}
+
+a,
+p {
+    font-size: 12pt;
+    padding: 3%;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+.svg-pan-zoom-container {
+    width: 900px;
+    height: 600px;
+    position: absolute;
+    overflow: hidden !important;
+    background: rgb(0,0,0,.2);
+}
+
+.sort {
+    /* margin-left: 8%; */
+    font-size: 12px;
+    width: 120px;
+    height: 30px;
+    background-color: #474747;
+    color: #EBEBEB;
+    border-radius: 1%;
+}
+#sortRadio {
+    font-size: 17px;
+    width: 275px;
+    height: 30px;
+    background-color: #474747;
+    color: #EBEBEB;
+    margin-left: 41%;
+    position: absolute;
+}
+.activeMap {
+    /* margin-left: 8%; */
+    font-size: 12px;
+    width: 120px;
+    height: 30px;
+    /* border-radius: 50%; */
+    font: bolder;
+    color: black;
+    background-color: #EBEBEB;
+}
+table, th, td {
+    height: 30px;
+    width: 200px;
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    table-layout:fixed;
+  }
+  table{
+      background-color: #EBEBEB;
+  }
+  td{
+    color:navy;
+    background-color:#EBEBEB;
+  }
+
+  .pagebutton {
+    background-color: rgb(157, 34, 53);
+    color: white;
+    font-family: 'Arial', serif;
+    font-size: 17px;
+    padding: 9px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    float: right;
+    margin: 12;
+}
+
+path:hover {
+    fill-opacity: .5;
+}
+
+path { 
+    stroke: rgb(109, 109, 109);
+    stroke-width: 2;
+    fill: none;
+}
+
+text{
+    fill: white;
+}
+
+.small-graph-text {
+    fill: white;
+    font-size: small;
+}
+
+path.confirmed{
+    stroke: red;
+    stroke-width: 3;
+    fill: none;
+}
+path.recovered{
+    stroke: #00ff00;
+    stroke-width: 3;
+    fill: none;
+}
+path.total-tests{
+    stroke: #0000ff;
+    stroke-width: 3;
+    fill: none;
+}   
+
+path.confirmed-light{
+    stroke: red;
+    stroke-width: 1.5;
+    fill: none;
+}
+path.recovered-light{
+    stroke: #00ff00;
+    stroke-width: 1.5;
+    fill: none;
+}
+path.total-tests-light{
+    stroke: #0000ff;
+    stroke-width: 1.5;
+    fill: none;
+}
+  .axis path,
+  .axis line {
+      fill: none;
+      stroke: rgb(190, 190, 190);
+      stroke-width: 1.5;
+      shape-rendering: crispEdges;
+  }
+
+  .line-chart-container {
+      float: right;
+      font-size: x-small;
+      margin-right: 20;
+  }
+.pagesubtitle {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 30x;
+	font-weight: bold;
+}
+
+.pagetext {
+	color: black;
+	font-family: 'Arial', serif;
+	font-size: 12x;
+}
+div.gtooltip{	
+    position: absolute;			
+    text-align: center;			
+    width: 150px;					
+    height: 75px;					
+    padding: 1px;				
+    font-size: 13px;		
+    background:rgb(200,210,220);
+    color:black;	
+    pointer-events: none;	
+    opacity: 0;		
+  }
+.chart-title{
+    position: absolute;
+    font-size: small;
+    padding: 0%;
+}
+div.confirmed{
+    padding: 10;
+    background: rgba(200, 54, 54, 0.5);
+    color: white;
+    margin-top: 5;
+}
+
+div.recovered{
+    padding: 10;
+    background: rgba(23, 201, 0, 0.5);
+    color: white;
+    margin-top: 10;
+}
+
+div.total-tests{
+    padding: 10;
+    background: rgba(7, 0, 216, 0.5);
+    color: white;
+    margin-top: 10;
+}
+
+.map-viz{
+    max-width: 900;
+}
+
+.map-legend{
+    background: rgb(0,0,0,0.4);
+    height: 85px;
+    width: 900px;
+}
+
+.state-dropdown{
+    background: #474747;
+    color: white;
+    padding: 5;
+    float: right;
+    margin-right: 20px;
+}
+
+select option {
+    color: black;
+    background: white;
+}
+
+.navigation-bar {
+    text-align: center;
+    font-weight: 350;
+    color: white;
+    background-color: #474747;
+}
+
+.main-content {
+    margin: 8px;
+}
+
+.chart-count {
+    position: absolute;
+    padding: 0%;
+    padding-top: 2%;
+}
+
+.chart-date {
+    position: absolute;
+    padding: 0%;
+    padding-top: 1%;
+    font-size: small;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+.lightRectangle {
+    fill: #666;
+    pointer-events: all;
+}
+
+.focus circle {
+    fill: white;
+}
+
+.question-container {
+    text-align: -webkit-center;
+}
+
+.question-viz-container{
+    width: 70%;
+}
+
+.questions {
+    color: white;
+}
+
+.question-desc {
+    color: white;
+    padding: 0%;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-bottom: 2%;
+    text-align: left;
+}
+
+hr.divider{
+    border-color: #555;
+}

@@ -1,69 +1,188 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
+<!-- colors: 3D3B8E, 6883BA,EBEBEB,E072A4,B0E298 -->
 
 <head>
-    <meta charset="utf-8">
-    <title>Home - Cholera Outbreak</title>
-    <link type="text/css" rel="stylesheet" href="styles.css" />
-    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Data Visualization</title>
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-    <div>
-        <div class="pagetitle" style="float: left;">London's 1854 Cholera Epidemic</div>
-        <div style="float: right;">
-            <form>
-                <input class="pagebutton" type="button" value="Documentation" onclick="window.location.href='documentation.html'" />
-            </form>
+
+    <div class="navigation-bar">
+
+        <input class="pagebutton" type="button" value="Documentation"
+            onclick="window.location.href='documentation.html'" />
+        <h1>COVID-19 Data Visualization</h1>
+    </div>
+
+    <div class="main-content">
+        <div id="sortRadio">
+            <span style="padding-left:2%"><input id="casesCheckBox" type="checkbox" value="casesCheckBox"
+                    onclick="changeLegend(value)"> Cases</span>
+            <span style="padding-left:2%"><input id="recoveredCheckBox" type="checkbox" value="recoveredCheckBox"
+                    onclick="changeLegend(value)"></span>
+            Recovered
+            <span style="padding-left:2%"><input id="testedCheckBox" type="checkbox" value="testedCheckBox"
+                    onclick="changeLegend(value)"> Tested</span>
         </div>
-        <br /><br />
-        <div class="pagetext">
-            <p>
-                The Broad Street cholera outbreak was a severe outbreak of cholera in 1854 near
-                Broad Street in the Soho district of the City of Westminster, London, England,
-                and occurred during the 1846–1860 cholera pandemic happening worldwide. This
-                outbreak, which killed 616 people, is best known for the physician John Snow's
-                study of its causes and his hypothesis that germ-contaminated water was the source
-                of cholera, rather than particles in the air. Snow later used a dot map to
-                illustrate how cases of cholera occurred around this pump. Snow's efforts to
-                connect cholera incidence with potential geographic sources were based on
-                creating what is now known as a Voronoi diagram. He mapped the locations of
-                individual water pumps and generated cells that represented all the points on his
-                map closest to each pump. The section of Snow's map representing areas in the
-                city where the closest available water source was the Broad Street pump included
-                the highest incidence of cholera cases.
-                <a href="https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak">
-                    (via Wikipedia)
-                </a>
-            </p>
-            <p>
-                This project was based on the original map, by John Snow, to show the clusters
-                of cholera deaths (indicated by red circles) and water pumps in the area
-                (indicated by blue pumps). When viewing this visual, there is a strong
-                correlation between cholera deaths to a water pump on Broad Street. There is a
-                line chart, bar chart, and pie chart with date filters. The map has an in and out zoom feature.
-                Click the documentation button in the top right corner to learn more about the project.
-            </p>
+
+        <button id="stateButton" class="sort" value="states" onclick="show(value)">State Map</button>
+        <button id="countyButton" class="sort" value="counties" onclick="show(value)">County Map</button>
+        <select class="state-dropdown" id="state-dropdown" name="state" onchange="selectStateFromDropDown()">
+        </select>
+        <hr />
+
+        <div id="viz">
+            <div class="line-chart-container" id="line-chart-container">
+
+                <div id="positive" class="confirmed">
+                    <p class="chart-title">Confirmed</p>
+                    <p class="chart-date" id="date"></p>
+                    <p class="chart-count" id="confirmed-count"></p>
+                </div>
+                <div id="recovered" class="recovered">
+                    <p class="chart-title">Recovered</p>
+                    <p class="chart-date" id="date"></p>
+                    <p class="chart-count" id="recovered-count"></p>
+                </div>
+                <div id="totalCases" class="total-tests">
+                    <p class="chart-title">Tested</p>
+                    <p class="chart-date" id="date"></p>
+                    <p class="chart-count" id="tested-count"></p>
+                </div>
+            </div>
+            <div id="d3-legend-v3" class="map-legend">
+                <svg style="position:absolute;" id="SmapLegend" width="900" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend2" width="900" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend3" width="900" height="120"></svg>
+                <svg style="position:absolute;" id="CmapLegend" width="900" height="120"></svg>
+            </div>
+            <div class="map-viz"></div>
+            <div id="tooltip" style="visibility: hidden; position: absolute;">
+                <table height="100px" width="100px">
+                    <tr>
+                        <th>State</th>
+                        <th>Tests</th>
+                        <th>Cases</th>
+                        <th>Deaths</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="svg-pan-zoom-container" id="stateZoom" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
+                data-pan-on-drag="button: left;" style="height: 80vh;">
+                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap">
+                    <g transform="translate(0 0)"></g>
+                </svg>
+            </div>
+            <div class="svg-pan-zoom-container" id="stateZoom2" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
+                data-pan-on-drag="button: left;" style="height: 80vh;">
+                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap2">
+                    <g transform="translate(0 0)"></g>
+                </svg>
+            </div>
+            <div class="svg-pan-zoom-container" id="stateZoom3" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
+                data-pan-on-drag="button: left;" style="height: 80vh;">
+                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap3">
+                    <g transform="translate(0 0)"></g>
+                </svg>
+            </div>
+            <div class="svg-pan-zoom-container" id="countyZoom" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
+                data-pan-on-drag="button: left;" style="height: 80vh;">
+                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="countyMap">
+                    <g transform="translate(0 0)"></g>
+                </svg>
+            </div>
         </div>
-        <div class="filter-dates" id="filter-dates">
-            <select name="from-date" id="from-date" class="date-input">
-                <option value="0" disabled selected="selected">From Date</option>
-            </select>
-            <select name="to-date" id="to-date" class="date-input">
-                <option value="0" disabled selected="selected">To Date</option>
-            </select>
-        </div>
-        <svg id="graph" width="49%" viewBox="0 0 500 500">
-            <text id='label' x='100' y='20'>Total cholera deaths per day by gender and age:</text>
-        </svg>
-        <svg id="map" width="49%" viewBox="0 0 500 500">
-            <text id='label' x='150' y='20'>Cholera deaths on the map:</text>
-        </svg>
+
+    </div>
+    <div class="question-container">
+        <h2 class="questions">Where the number of tests were highest</h2>
+        <p class="question-desc">
+            States with highest number of tests till 27 September 2020. The charts, which are all on the same scale,
+            show cumulitive positive cases over the time.
+        </p>
+        <div id="question-2" class="question-viz-container"></div>
+        <div class="question-viz-container"></div>
+        <h2 class="questions">Where the number of confirmed cases are highest</h2>
+        <p class="question-desc">
+            States with highest number of cases till 27 September 2020. The charts, which are all on the same scale,
+            show cumulitive positive cases over the time.
+        </p>
+        <div id="question-3" class="question-viz-container"></div>
+        <h2 class="questions">Where the number of recovered people are highest</h2>
+        <p class="question-desc">
+            States with highest number of cases till 27 September 2020. The charts, which are all on the same scale,
+            show cumulitive positive cases over the time. Note that Recovered data for key states such as Illinois,
+            Florida, Georgia and California is missing.
+        </p>
+        <div id="question-4" class="question-viz-container"></div>
+        <h2 class="questions">Where the death toll is highest</h2>
+        <p class="question-desc">
+            States with highest number of deaths till 27 September 2020. The charts, which are all on the same scale,
+            show cumulitive positive cases over the time. Note that Recovered data for key states such as Illinois,
+            Florida, Georgia and California is missing.
+        </p>
+        <div id="question-5" class="question-viz-container"></div>
+        <h2 class="questions">Where new cases are high but are going down</h2>
+        <p class="question-desc">
+            States where new cases are higher but are going down over past 60 days. The charts, which are all on the
+            same scale, show positive case increase per day.
+        </p>
+        <div id="question-1"></div>
+        <h2 class="questions">Where new cases are low but are going up</h2>
+        <p class="question-desc">
+            States where new cases are low but are going up over past 60 days. The charts, which are all on the same
+            scale, show positive case increase per day.
+        </p>
+        <div id="question-6"></div>
+    </div>
+    </div>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.13.0/d3-legend.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.2.7"></script>
+    <script src="stateNameUtility.js"></script>
+    <script src="chart.js"></script>
+    <script src="lineChartUtility.js"></script>
+    <script src="lineChart.js"></script>
+    <script src="map.js"></script>
+    <script src="app.js"></script>
+    <div id="sources">
+        Sources
+        <br>
+        <a href="http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922">Map</a>
+        <a href="https://eric.clst.org/tech/usgeojson/">US GeoJSON Data</a>
+        <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">Census
+            Bureau Data</a>
+        <a href="https://www.kaggle.com/sudalairajkumar/covid19-in-usa?select=us_counties_covid19_daily.csv">COVID-19
+            Data</a>
+        <a href="https://d3-legend-v3.susielu.com/#color-doc">Legend</a>
+        <a href="">Source</a>
+
+    </div>
+    <br>
+    <div id="contributors">
+        Contributors
+        <br>
+        <a>Evan Ruder </a>
+        <a>Siddhi Joshi</a>
+        <a>Nikhil Morar</a>
+        <a>Darshan Patni</a>
+
     </div>
 
 
-    <script type="text/javascript" src="./script.js"></script>
 </body>
-
 
 </html>
