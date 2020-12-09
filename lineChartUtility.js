@@ -1,7 +1,7 @@
 var chartData;
 var x,y;
 var totalX, totalY;
-var positiveFocus, totalFocus, recoverdFocus;
+var positiveFocus, totalFocus, recoverdFocus, deathFocus;
 
 var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
@@ -30,6 +30,8 @@ function drawLineChartV1(data, width, height, svg, attr) {
                     return y(d.negative);
                 case attribute.RECOVERED:
                     return y(d.recovered);
+                case attribute.DEATHS:
+                    return y(d.death);
             }
         });
 
@@ -44,6 +46,8 @@ function drawLineChartV1(data, width, height, svg, attr) {
             case attribute.NEGATIVE:
                 return d.negative;
             case attribute.RECOVERED:
+                return d.positive+(0.1*d.positive);
+            case attribute.DEATHS:
                 return d.positive+(0.1*d.positive);
         }
     })]);
@@ -84,6 +88,16 @@ function drawLineChartV1(data, width, height, svg, attr) {
 
             path.attr("class", "recovered");
             break;
+        case attribute.DEATHS:
+            deathFocus = svg.append("g")
+                .attr("class", "focus")
+                .style("display", "none");
+
+            deathFocus.append("circle")
+                .attr("r", 5);
+
+            path.attr("class", "deaths");
+            break;
     }
 
     if(attr === attribute.TOTAL_CASES) {
@@ -112,12 +126,14 @@ function drawLineChartV1(data, width, height, svg, attr) {
             positiveFocus.style("display", null);
             totalFocus.style("display", null);
             recoverdFocus.style("display", null);
+            deathFocus.style("display", null);
          })
         .on("mouseout", function() { 
             mouseOut();
             positiveFocus.style("display", "none");
             totalFocus.style("display", "none");
             recoverdFocus.style("display", "none");
+            deathFocus.style("display", "none");
          })
         .on("mousemove", mousemove);
         mouseOut();
@@ -131,6 +147,7 @@ function mousemove() {
     recoverdFocus.attr("transform", "translate(" + x(x0) + "," + y(data["recovered"]) + ")");
     positiveFocus.attr("transform", "translate(" + x(x0) + "," + y(data["positive"]) + ")");
     totalFocus.attr("transform", "translate(" + totalX(x0) + "," + totalY(data["totalTestResults"]) + ")");
+    deathFocus.attr("transform", "translate(" + x(x0) + "," + y(data["death"]) + ")");
     // console.log(d)
     console.log(x0.toDateString())
     showDataForDate(x0.toDateString(), data);
@@ -193,6 +210,8 @@ function drawLineChartV2(data, width, height, svg, attr, abbr, mainData) {
                     return y(d.positiveIncrease);
                 case attribute.DEATHS:
                     return y(d.death);
+                case attribute.DEATH_INCREASE:
+                    return y(d.deathProbable);
             }
         });
 
@@ -214,6 +233,8 @@ function drawLineChartV2(data, width, height, svg, attr, abbr, mainData) {
                 return parseInt(d.positiveIncrease)+0.1*parseInt(d.positiveIncrease);
             case attribute.DEATHS:
                 return parseInt(d.death)+0.1*parseInt(d.death);
+            case attribute.DEATH_INCREASE:
+                return parseInt(d.deathIncrease)+0.1*parseInt(d.deathIncrease);
         }
     })]);
 

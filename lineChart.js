@@ -8,14 +8,27 @@ let attribute = {
     RECOVERED: "recovered",
     POSITIVE_INC: "positiveIncrease",
     DEATHS: "death",
-    DEATH_DAILY: "deathConfirmed"
+    DEATH_INCREASE: "deathIncrease"
 };
+
+let USPopulation = 327167439;
+let USConfirmed = 7080459;
+let USRecovered = 2766289;
+let USDeaths = 196869;
+let USTests = 101298794;
+
+var usCnfPerMil = (USConfirmed/USPopulation)*1000000;
+var usRecRatio = (USRecovered/USConfirmed)*100;
+var usMortalityRatio = (USDeaths/USConfirmed)*100;
+var usTstPerMil = (USTests/USPopulation)*1000000;
 
 // Set the dimensions of the canvas / graph
 var	margin = {top: 30, right: 70, bottom: 30, left: 0},
 	width = 550 - margin.left - margin.right,
 	height = 200 - margin.top - margin.bottom;
- 
+
+width = window.innerWidth*.31
+height = window.innerHeight*.188
 // Parse the date / time
 var	parseDate = d3.time.format("%Y%m%d").parse;
  
@@ -25,6 +38,8 @@ var	divTotalCases = d3.select("#totalCases");
 var divPositive = d3.select("#positive");
 
 var divRecovered = d3.select("#recovered");
+
+var divDeceased = d3.select("#deaths");
 
 window.addEventListener('load', function() {
     console.log('All assets are loaded')
@@ -88,8 +103,8 @@ function selectStateFromDropDown() {
  * @param {String Abrrivation in Caps} state 
  */
 function drawLineChartForState(state) {
+    dropdown.value = state;
 	d3.csv("assets/knowledge/covid-data/states/"+state+".csv", function(error, data) {
-        dropdown.value = state;
         //Code for line chart
         data.forEach(function(d) {
             console.log(parseDate(d.date));
@@ -102,7 +117,66 @@ function drawLineChartForState(state) {
         drawTotalCases(data);
         drawPostive(data);
         drawRecovered(data);
-	});
+        drawDeceased(data);
+    });
+    calculateInsights(state);
+}
+
+function calculateInsights(state) {
+    var stateData = getCumulitiveDataForState(state)
+    var cnfPerMil = (stateData["positive"]/stateData["population"])*1000000;
+    var recRatio = (stateData["recovered"]/stateData["positive"])*100;
+    var mortalityRatio = (stateData["death"]/stateData["positive"])*100;
+    var tstPerMil = (stateData["totalTestResults"]/stateData["population"])*1000000;
+
+    displayCnfInsights(cnfPerMil);
+    displayRecInsights(recRatio);
+    displayDeathInsights(mortalityRatio);
+    displayTestInsights(tstPerMil);
+}
+
+function displayCnfInsights(num){
+    var numElement = document.getElementById("cnf-in-num");
+    numElement.innerHTML = num.toFixed(2);
+    
+    var textElement = document.getElementById("cnf-ins-txt");
+    textElement.innerHTML = "~"+parseInt(num)+", out of every million people in "+ getNameForAbbr(dropdown.value) +" have tested positive for the virus."
+
+    var usDataElement = document.getElementById("confirmed-us-data");
+    usDataElement.innerHTML = "US has "+usCnfPerMil.toFixed(2);
+}
+
+function displayRecInsights(num){
+    var numElement = document.getElementById("rec-in-num");
+    numElement.innerHTML = num.toFixed(2);
+    
+    var textElement = document.getElementById("rec-ins-txt");
+    textElement.innerHTML = "For every 100 confirmed cases, ~"+parseInt(num)+" have recovered from the virus in "+getNameForAbbr(dropdown.value)+"."
+
+    var usDataElement = document.getElementById("recovered-us-data");
+    usDataElement.innerHTML = "NA";
+}
+
+function displayDeathInsights(num){
+    var numElement = document.getElementById("death-in-num");
+    numElement.innerHTML = num.toFixed(2);
+    
+    var textElement = document.getElementById("death-ins-txt");
+    textElement.innerHTML = "For every 100 confirmed cases, ~"+ parseInt(num) +" have died from the virus in "+getNameForAbbr(dropdown.value)+"."
+
+    var usDataElement = document.getElementById("death-us-data");
+    usDataElement.innerHTML = "US has "+usMortalityRatio.toFixed(2);
+}
+
+function displayTestInsights(num){
+    var numElement = document.getElementById("tst-in-num");
+    numElement.innerHTML = num.toFixed(2);
+    
+    var textElement = document.getElementById("test-ins-txt");
+    textElement.innerHTML = "For every million people in " +getNameForAbbr(dropdown.value)+", ~"+parseInt(num)+" samples were tested."
+
+    var usDataElement = document.getElementById("tests-us-data");
+    usDataElement.innerHTML = "US has "+usTstPerMil.toFixed(2);
 }
 
 var totalTestChart;
@@ -159,6 +233,23 @@ function drawRecovered(data){
     drawLineChartV1(data, width, height, svgRecovered, attribute.RECOVERED);
 }
 
+function drawDeceased(data){
+    var element = document.getElementById("death-count");
+    element.innerHTML = getCumulitiveDataForState(dropdown.value)["death"];
+
+    divDeceased.select("svg").remove();
+
+    var svgDeceased = divDeceased
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");   
+
+    
+    drawLineChartV1(data, width, height, svgDeceased, attribute.DEATHS);
+}
+
 function showDataForDate(date, data) {
     var confirmedCount = document.getElementById("confirmed-count");
     confirmedCount.innerHTML = data["positive"];
@@ -166,6 +257,8 @@ function showDataForDate(date, data) {
     recoveredCount.innerHTML = data["recovered"];
     var testedCount = document.getElementById("tested-count");
     testedCount.innerHTML = data["totalTestResults"];
+    var deathCount = document.getElementById("death-count");
+    deathCount.innerHTML = data["death"];
 
     var dateElements = document.getElementsByClassName("chart-date");
     console.log(dateElements)
