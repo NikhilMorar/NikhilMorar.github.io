@@ -24,11 +24,11 @@ var usTstPerMil = (USTests/USPopulation)*1000000;
 
 // Set the dimensions of the canvas / graph
 var	margin = {top: 30, right: 70, bottom: 30, left: 0},
-	width = 550 - margin.left - margin.right,//480
-	height = 200 - margin.top - margin.bottom;//140
+	width = 550 - margin.left - margin.right,
+	height = 200 - margin.top - margin.bottom;
 
-// width = window.innerWidth*.31
-// height = window.innerHeight*.188
+width = window.innerWidth*.31
+height = window.innerHeight*.188
 // Parse the date / time
 var	parseDate = d3.time.format("%Y%m%d").parse;
  

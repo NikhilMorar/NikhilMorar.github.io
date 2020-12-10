@@ -1,4 +1,4 @@
-var w = window.innerWidth * .56;
+var w = window.innerWidth * .59;
 var h = window.innerHeight * .8;
 
 var projection = d3.geo.albersUsa()
@@ -71,7 +71,7 @@ function drawStatesByCases() {
     var svg = d3.select("#SmapLegend");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var stateLegend = d3.legend.color()
         .scale(stateColor)
@@ -160,7 +160,7 @@ function drawStatesByRecovered() {
     var svg = d3.select("#SmapLegend2");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var stateLegend = d3.legend.color()
         .scale(stateColor)
@@ -250,7 +250,7 @@ function drawStatesByTests() {
     var svg = d3.select("#SmapLegend3");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var stateLegend = d3.legend.color()
         .scale(stateColor)
@@ -339,7 +339,7 @@ function drawStatesByDeaths() {
     var svg = d3.select("#SmapLegend4");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var stateLegend = d3.legend.color()
         .scale(stateColor)
@@ -425,7 +425,7 @@ function drawCountiesByCases() {
     var svg = d3.select("#CmapLegend");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var legend = d3.legend.color()
         .shapeWidth(125)
@@ -504,7 +504,7 @@ function drawCountiesByDeaths() {
     var svg = d3.select("#CmapLegend2");
     svg.append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(90,20)")
+        .attr("transform", "translate(150,20)")
         .style("font-size", "12px");
     var legend = d3.legend.color()
         .shapeWidth(125)
