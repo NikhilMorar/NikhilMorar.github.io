@@ -24,7 +24,7 @@ h1 {
 
 #viz {
     width: 100%;
-    height: 700px;
+    /* height: 700px; */
 }
 
 a,
@@ -44,8 +44,8 @@ a:hover {
     text-decoration: underline;
 }
 .svg-pan-zoom-container {
-    width: 59%;
-    height: 80%;
+    width: 800px;
+    height: 600px;
     position: absolute;
     overflow: hidden !important;
     background: rgb(0,0,0,.2);
@@ -66,7 +66,7 @@ a:hover {
     height: 30px;
     background-color: #474747;
     color: #EBEBEB;
-    margin-left: 32.7%;
+    margin-left: 26.6%;
     position: absolute;
 }
 #sortRadio2 {
@@ -250,7 +250,7 @@ div.deaths{
 .map-legend{
     background: rgb(0,0,0,0.4);
     height: 85px;
-    width: 59.7%;
+    width: 800px;
 }
 
 .state-dropdown{
@@ -273,8 +273,15 @@ select option {
     background-color: #474747;
 }
 
-.main-content {
+.viz-content {
     margin: 8px;
+    min-width: 1400px;
+    max-width: 1400px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
 }
 
 .chart-count {
@@ -330,10 +337,10 @@ hr.divider{
 }
 
 .insight-container-div {
-    width: 60%;
     display: flex;
-    height: 29%;
+    min-height: 220;
     color: white;
+    margin-top: 608px;
 }
 
 .insight-div {
@@ -353,7 +360,6 @@ hr.divider{
 .tests-insights {
     background: rgba(7, 0, 216, 0.5);
     /* color: rgb(0,0,250); */
-    margin-right: 5px;
 }
 .mortality-insights {
     background: rgba(150, 50, 150, 0.5);
@@ -368,9 +374,5 @@ hr.divider{
 }
 
 .text-data {
-    padding: 0%;
-    padding-left: 3%;
-    padding-top:3%;
-    padding-right: 3%;
     margin: 0;
 }

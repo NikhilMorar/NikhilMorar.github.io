@@ -21,6 +21,7 @@
     </div>
 
     <div class="main-content">
+        <div class="viz-content">
         <div id="sortRadio">
             <span style="padding-left:2%"><input id="casesCheckBox" type="checkbox" value="casesCheckBox"
                     onclick="changeLegend(value)"> Cases</span>
@@ -72,12 +73,12 @@
                 </div>
             </div>
             <div id="d3-legend-v3" class="map-legend">
-                <svg style="position:absolute;" id="SmapLegend" width="900" height="120"></svg>
-                <svg style="position:absolute;" id="SmapLegend2" width="900" height="120"></svg>
-                <svg style="position:absolute;" id="SmapLegend3" width="900" height="120"></svg>
-                <svg style="position:absolute;" id="SmapLegend4" width="900" height="120"></svg>
-                <svg style="position:absolute;" id="CmapLegend" width="900" height="120"></svg>
-                <svg style="position:absolute;" id="CmapLegend2" width="900" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend" width="800" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend2" width="800" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend3" width="800" height="120"></svg>
+                <svg style="position:absolute;" id="SmapLegend4" width="800" height="120"></svg>
+                <svg style="position:absolute;" id="CmapLegend" width="800" height="120"></svg>
+                <svg style="position:absolute;" id="CmapLegend2" width="800" height="120"></svg>
             </div>
             <div class="map-viz"></div>
             <div id="tooltip" style="visibility: hidden; position: absolute;">
@@ -99,71 +100,73 @@
             </div>
             <div class="svg-pan-zoom-container" id="stateZoom" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="stateMap">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
             <div class="svg-pan-zoom-container" id="stateZoom2" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap2">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="stateMap2">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
             <div class="svg-pan-zoom-container" id="stateZoom3" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap3">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="stateMap3">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
             <div class="svg-pan-zoom-container" id="stateZoom4" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="stateMap4">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="stateMap4">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
             <div class="svg-pan-zoom-container" id="countyZoom" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="countyMap">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="countyMap">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
             <div class="svg-pan-zoom-container" id="countyZoom2" data-zoom-on-wheel="zoom-amount: 0.005; max-scale: 20;"
                 data-pan-on-drag="button: left;">
-                <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet " id="countyMap2">
+                <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet " id="countyMap2">
                     <g transform="translate(0 0)"></g>
                 </svg>
             </div>
+            <div class="insight-container-div">
+                <div class="insight-div confirmed-insights">
+                    <p>Confirmed Per Million</p>
+                    <p id="confirmed-us-data" class="sub-data"></p>
+                    <h3 id="cnf-in-num">93%</h3>
+                    <p id="cnf-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the virus.
+                    </p>
+                </div>
+                <div class="insight-div recovered-insights">
+                    <p>Recovery Ratio</p>
+                    <p id="recovered-us-data" class="sub-data"></p>
+                    <h3 id="rec-in-num">93%</h3>
+                    <p id="rec-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the virus.
+                    </p>
+                </div>
+                <div class="insight-div mortality-insights">
+                    <p>Mortality Ratio</p>
+                    <p id="death-us-data" class="sub-data"></p>
+                    <h3 id="death-in-num">93%</h3>
+                    <p id="death-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the
+                        virus.</p>
+                </div>
+                <div class="insight-div tests-insights">
+                    <p>Tests Per Million</p>
+                    <p id="tests-us-data" class="sub-data"></p>
+                    <h3 id="tst-in-num">93%</h3>
+                    <p id="test-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the
+                        virus.</p>
+                </div>
+            </div>
         </div>
-        <div class="insight-container-div">
-            <div class="insight-div confirmed-insights">
-                <p>Confirmed Per Million</p>
-                <p id="confirmed-us-data" class="sub-data"></p>
-                <h3 id="cnf-in-num">93%</h3>
-                <p id="cnf-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the virus.
-                </p>
-            </div>
-            <div class="insight-div recovered-insights">
-                <p>Recovery Ratio</p>
-                <p id="recovered-us-data" class="sub-data"></p>
-                <h3 id="rec-in-num">93%</h3>
-                <p id="rec-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the virus.
-                </p>
-            </div>
-            <div class="insight-div mortality-insights">
-                <p>Mortality Ratio</p>
-                <p id="death-us-data" class="sub-data"></p>
-                <h3 id="death-in-num">93%</h3>
-                <p id="death-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the
-                    virus.</p>
-            </div>
-            <div class="insight-div tests-insights">
-                <p>Tests Per Million</p>
-                <p id="tests-us-data" class="sub-data"></p>
-                <h3 id="tst-in-num">93%</h3>
-                <p id="test-ins-txt" class="text-data">For evert 100 confirmed cases, ~ 93 have recovered from the
-                    virus.</p>
-            </div>
-        </div>
+        
+    </div>
     </div>
 
     <div class="question-container">
@@ -228,9 +231,10 @@
             Bureau Data</a>
         <a href="https://www.kaggle.com/sudalairajkumar/covid19-in-usa?select=us_counties_covid19_daily.csv">COVID-19
             Data</a>
+        <a href="https://datausa.io/about/api/">DATA USA</a>
         <a href="https://d3-legend-v3.susielu.com/#color-doc">Legend</a>
         <a href="">Source</a>
-
+    
     </div>
     <br>
     <div id="contributors">
